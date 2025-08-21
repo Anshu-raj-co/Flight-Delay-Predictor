@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Plane, Calendar, Clock, MapPin } from "lucide-react";
+import { AirportSelector } from "@/components/AirportSelector";
 
 export interface FlightData {
   airline: string;
@@ -99,7 +100,11 @@ export const FlightForm = ({ onSubmit, isLoading }: FlightFormProps) => {
                       Origin Airport
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. JFK, LAX, ORD" {...field} />
+                      <AirportSelector
+                        value={field.value}
+                        onSelect={field.onChange}
+                        placeholder="Search for origin city or airport..."
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -116,7 +121,11 @@ export const FlightForm = ({ onSubmit, isLoading }: FlightFormProps) => {
                       Destination Airport
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. JFK, LAX, ORD" {...field} />
+                      <AirportSelector
+                        value={field.value}
+                        onSelect={field.onChange}
+                        placeholder="Search for destination city or airport..."
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
