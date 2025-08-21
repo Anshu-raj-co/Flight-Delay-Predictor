@@ -12,20 +12,22 @@ export class FlightDelayPredictor {
     "Alaska Airlines": 0.88,
     "Spirit Airlines": 0.65,
     "Frontier Airlines": 0.68,
+    "Air India": 0.72,
+    "IndiGo": 0.83,
+    "SpiceJet": 0.70,
+    "GoAir": 0.75,
+    "Vistara": 0.82,
+    "AirAsia India": 0.76,
   };
 
   private airportDelayRisk: Record<string, number> = {
     "JFK": 0.3, "LAX": 0.25, "ORD": 0.35, "ATL": 0.28, "DFW": 0.22,
     "DEN": 0.20, "LAS": 0.18, "PHX": 0.15, "MIA": 0.32, "SEA": 0.24,
-    "SFO": 0.29, "BOS": 0.26, "EWR": 0.33, "CLT": 0.19, "MCO": 0.21
+    "SFO": 0.29, "BOS": 0.26, "EWR": 0.33, "CLT": 0.19, "MCO": 0.21,
+    "DEL": 0.35, "BOM": 0.32, "BLR": 0.28, "MAA": 0.25, "HYD": 0.22,
+    "CCU": 0.30, "AMD": 0.26, "COK": 0.20, "GOI": 0.18, "PNQ": 0.24
   };
 
-  private seasonalFactors: Record<string, number> = {
-    "Winter": 1.4, // Higher delays due to weather
-    "Summer": 1.2, // Thunderstorms and high traffic
-    "Spring": 1.0, // Moderate conditions
-    "Fall": 0.9,   // Generally better weather
-  };
 
   private timeFactors = {
     earlyMorning: 0.8,  // 5-8 AM
@@ -93,21 +95,6 @@ export class FlightDelayPredictor {
       factors.push("Off-peak departure time reduces delay risk");
     }
 
-    // Seasonal factor
-    const seasonRisk = this.seasonalFactors[flightData.season] || 1.0;
-    baseDelayRisk *= seasonRisk;
-    if (seasonRisk > 1.1) {
-      factors.push(`${flightData.season} weather patterns increase delays`);
-    }
-
-    // Aircraft type factor (newer aircraft are more reliable)
-    if (flightData.aircraftType.includes("787") || flightData.aircraftType.includes("A350")) {
-      baseDelayRisk *= 0.9;
-      factors.push("Modern aircraft with high reliability");
-    } else if (flightData.aircraftType.includes("Regional")) {
-      baseDelayRisk *= 1.15;
-      factors.push("Regional aircraft more susceptible to weather delays");
-    }
 
     // Simulated weather impact
     const weatherRisk = this.simulateWeatherImpact();

@@ -15,8 +15,6 @@ export interface FlightData {
   destination: string;
   departureDate: string;
   departureTime: string;
-  aircraftType: string;
-  season: string;
 }
 
 interface FlightFormProps {
@@ -26,15 +24,10 @@ interface FlightFormProps {
 
 const airlines = [
   "American Airlines", "Delta Air Lines", "United Airlines", "Southwest Airlines",
-  "JetBlue Airways", "Alaska Airlines", "Spirit Airlines", "Frontier Airlines"
+  "JetBlue Airways", "Alaska Airlines", "Spirit Airlines", "Frontier Airlines",
+  "Air India", "IndiGo", "SpiceJet", "GoAir", "Vistara", "AirAsia India"
 ];
 
-const aircraftTypes = [
-  "Boeing 737", "Boeing 777", "Boeing 787", "Airbus A320", "Airbus A330", 
-  "Airbus A350", "Embraer E-Jet", "Regional Jet"
-];
-
-const seasons = ["Spring", "Summer", "Fall", "Winter"];
 
 export const FlightForm = ({ onSubmit, isLoading }: FlightFormProps) => {
   const form = useForm<FlightData>();
@@ -164,55 +157,6 @@ export const FlightForm = ({ onSubmit, isLoading }: FlightFormProps) => {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="aircraftType"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Aircraft Type</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select aircraft" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {aircraftTypes.map((aircraft) => (
-                          <SelectItem key={aircraft} value={aircraft}>
-                            {aircraft}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="season"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Season</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select season" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {seasons.map((season) => (
-                          <SelectItem key={season} value={season}>
-                            {season}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
 
             <Button 
