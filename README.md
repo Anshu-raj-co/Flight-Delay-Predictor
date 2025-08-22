@@ -44,14 +44,12 @@ cd frontend
 npm install
 npm run dev
 
-Frontend will start on http://localhost:5173/
+Frontend will start on [http://localhost:5173/](http://localhost:8081/)
 
 3️⃣ Run the backend
 cd backend
 npm install
 npm start
-
-Backend will run on http://localhost:5000/
 
 4️⃣ Machine Learning Model (optional if retraining)
 cd model
